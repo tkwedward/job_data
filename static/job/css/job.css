@@ -1,0 +1,144 @@
+body {
+  background: #fffbe8;
+  width: 100%; }
+
+.navbar {
+  margin-bottom: 0;
+  background-color: #fcd406;
+  font-size: 18px; }
+  .navbar a {
+    color: white;
+    margin-right: 5px; }
+  .navbar .navbar-toggle {
+    color: white;
+    font-size: 20px;
+    margin: 0px; }
+
+.bg-1 {
+  background-color: #fcd406;
+  margin-top: 0px; }
+  .bg-1 .title {
+    float: right;
+    position: relative;
+    font-size: 15px;
+    left: -7%;
+    top: 50px; }
+    @media screen and (max-width: 851px) {
+      .bg-1 .title {
+        left: 0%; } }
+  .bg-1 img {
+    height: 220px;
+    width: auto; }
+
+.bg-2 {
+  font-size: 15px;
+  min-height: 500px;
+  background: white; }
+  .bg-2 .glyphicon-fire {
+    font-size: 60px;
+    color: red;
+    margin-top: 40px; }
+  .bg-2 .bg-2-content {
+    width: 70%;
+    display: block;
+    margin: 20px auto; }
+
+.bg-3 {
+  max-width: 500px; }
+  .bg-3 .bg-3-form {
+    margin-top: 40px; }
+
+.bg-4 {
+  background: #fcd406;
+  min-height: 320px; }
+  .bg-4 .icon {
+    height: 100px;
+    width: auto;
+    margin: 20px; }
+  .bg-4 .share {
+    margin-top: 35px; }
+    .bg-4 .share button {
+      margin-top: 50px;
+      margin-bottom: 30px; }
+  .bg-4 .contact {
+    margin-top: 35px; }
+
+.bg-5 {
+  min-height: 860px;
+  font-size: 18px; }
+  .bg-5 .glyphicon {
+    margin-top: 30px;
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: red; }
+  .bg-5 h1 {
+    margin-bottom: 50px; }
+  .bg-5 img {
+    float: right; }
+
+.bg-6 {
+  background: #fcd406;
+  height: 70px; }
+
+.latest-bg-1 {
+  background: white;
+  height: 230px; }
+  .latest-bg-1 .box {
+    position: relative;
+    left: 5%; }
+  .latest-bg-1 a {
+    font-size: 15px;
+    border: 1px solid black;
+    padding: 5px 10px;
+    margin: 10px; }
+  .latest-bg-1 img {
+    height: 150px;
+    position: absolute;
+    right: 5%;
+    top: 20%; }
+    @media screen and (max-width: 851px) {
+      .latest-bg-1 img {
+        visibility: hidden; } }
+
+.latest-bg-2 form {
+  margin-top: 5%; }
+
+table {
+  width: 85%;
+  margin: 0px auto;
+  border: 1px solid white; }
+  table .rwd-td {
+    display: none; }
+
+th, td {
+  width: 120px;
+  background: white; }
+
+@media screen and (max-width: 851px) {
+  table, tbody, tr, td, div {
+    display: block; }
+
+  table .rwd-td {
+    display: block;
+    float: left;
+    width: 40%; }
+  table td {
+    width: 100%; }
+  table tr {
+    margin-top: 15px; }
+  table th {
+    display: none; } }
+ul li {
+  list-style-type: none;
+  display: inline; }
+ul label {
+  border: 1px solid green;
+  width: 23%;
+  height: 10%;
+  background-color: pink; }
+  ul label input {
+    display: none; }
+ul .case {
+  background-color: red; }
+
+/*# sourceMappingURL=job.css.map */

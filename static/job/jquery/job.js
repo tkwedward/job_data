@@ -8,19 +8,31 @@ $(document).ready(function(){
   $("#id_OT lable").html("jazz")
 
   console.log('hi')
-  $("li .label").append("hi")
 
-  $(".OT input ").change(function() {
-      $(".OT label").removeClass("case");
 
-      $(this).parent().addClass("case")
-  });
-
-  $(".Overtime_pay input ").change(function() {
-      $(".Overtime_pay label").removeClass("case");
+  $("#id_OT input").change(function() {
+      $("#id_OT label").removeClass("case");
 
       $(this).parent().addClass("case")
   });
+
+  $("#id_Overtime_pay input ").change(function() {
+      $("#id_Overtime_pay label").removeClass("case");
+
+      $(this).parent().addClass("case")
+  });
+  //
+  // $(".OT input ").change(function() {
+  //     $(".OT label").removeClass("case");
+  //
+  //     $(this).parent().addClass("case")
+  // });
+  //
+  // $(".Overtime_pay input ").change(function() {
+  //     $(".Overtime_pay label").removeClass("case");
+  //
+  //     $(this).parent().addClass("case")
+  // });
 
 
 // .Overtime_pay input

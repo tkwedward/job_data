@@ -43,9 +43,13 @@
   <h1>匿名參與工時薪資透明化運動</h1>
 
 
-
-    <a href="#">我是自由業者</a>
+{% if type %}
+    <a href="{% url 'freelance_form' %}">我是自由業者</a>
     {% include "form_2.html" %}
+{% else %}
+  <a href="{% url 'form' %}">我有固定職業</a>
+    {% include "freelance_form.html" %}
+{% endif %}
 
 </div> <!-- .container -->
 

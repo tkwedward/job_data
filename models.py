@@ -74,6 +74,7 @@ class Job_detail(models.Model):
 
 class User_data_form(models.Model):
     user = models.ForeignKey(User, related_name="user_form")
+    data_input = models.CharField(max_length=10, null=True)
 
     def __str__(self):
         return str(self.id)

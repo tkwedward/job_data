@@ -14,13 +14,13 @@ def get_name(request):
     user = request.user
     return render(request, 'name.html', {'form': form, 'type':'normal', 'user':user})
 
-def get_name_2(request):
-    form = FreelanceForm()
-    return render(request, 'name.html', {'form': form, 'type2':'freelance'})
+# def get_name_2(request):
+#     form = FreelanceForm()
+#     return render(request, 'name.html', {'form': form, 'type2':'freelance'})
 
     #第二頁
 def job_list(request):#2.1
-    model = Job_detail.objects.order_by('-date')
+    model = Job_detail.objects.order_by('-id')
     return render(request, 'list_view.html', {'list':model})
 
 def job_list_work_time(request):#2.2
@@ -30,15 +30,15 @@ def job_list_work_time(request):#2.2
 def job_list_salary(request):#2.3
     return render(request, 'name.html', {'form': form})
 
-def Freelance_add(request):
-    if request.method == "POST":
-        form = FreelanceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('success')
-    else:
-        form = FreelanceForm()
-    return render(request, 'freelance_form.html', {'form': form})
+# def Freelance_add(request):
+#     if request.method == "POST":
+#         form = FreelanceForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('success')
+#     else:
+#         form = FreelanceForm()
+#     return render(request, 'freelance_form.html', {'form': form})
 
 #功能
 
@@ -56,8 +56,7 @@ def added(request):
                     return redirect('success')
                 else:
                     messages.error(request, 'You have post more than 5 times.')
-                    form = ContactForm()
-                    render(request, 'name.html', {'form': form})
+                    redirect('form')
 
         else:
             return redirect('social:begin', 'facebook')
@@ -87,10 +86,10 @@ def customer_order(request):
         result = Job_detail.objects.all().order_by("salary")
 
     elif keyword == "time_descending":
-        result = Job_detail.objects.all().order_by("date")
+        result = Job_detail.objects.all().order_by("id")
 
     elif keyword == "time_ascending":
-        result = Job_detail.objects.all().order_by("-date")
+        result = Job_detail.objects.all().order_by("-id")
 
     return render(request, 'list_view.html', {'list':result})
     # return HttpResponse(keyword)

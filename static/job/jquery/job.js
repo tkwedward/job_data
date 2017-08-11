@@ -24,6 +24,9 @@ $(document).ready(function(){
     $('.repeat').append(
     "<hr>工作名稱:<br>\
     <input type='text' name='job_name"+i +"'><br>\
+    工作地點::<br>\
+    <input type='text' name='job_location"+i
+    +"'><br>\
     平均收入:<br>\
     <input type='text' name='average"+i +"'><br>\
     最高收入:<br>\

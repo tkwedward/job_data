@@ -104,7 +104,7 @@ def test_form(request):
 
             Freelance.objects.create(job_name=job_name, job_location=job_location, average =average, max_salary= max_salary, min_salary= min_salary, date = '2017-7-3', freelance_user_id=request.user.id)
 
-    return HttpResponse('average= {}, max_salary={}, min_salary={}, request.user= {}'.format(average ,max_salary, min_salary, request.user))
+    return HttpResponse("average= {}, max_salary={}, min_salary={}, request.user= {}<br><a href='/job/form'>back home </a>".format(average ,max_salary, min_salary, request.user))
 
 
 def search(request):

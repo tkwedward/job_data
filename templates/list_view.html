@@ -5,32 +5,64 @@
 <div class="container-fluid latest-bg-1"><!-- 1st row -->
   <div class="row">
     <div class="box">
-    <h1> 查看工時、薪資</h1>
-    <a href="{% url 'latest' %}">最新資料</a>
-    <a href="{% url 'working_hour' %}">工時排行</a>
-    <a href="{% url 'salary' %}">時薪排行</a>
+    <h1> 查看工時、薪資 ({{types}})</h1>
+
+    {% if types == 'regular' %}
+    <a href="{% url 'ordering' 'regular' 'ascending' 'date' %}">最新資料</a>
+    <a href="{% url 'ordering' 'regular' 'ascending' 'working_hour' %}">工時排行</a>
+    <a href="{% url 'ordering' 'regular' 'ascending' 'salary' %}">時薪排行</a>
+
+    <a href="{% url 'latest' 'freelance' %}">自由業者</a>
+    {% endif %}
+
+    {% if types == 'freelance'%}
+    <a href="{% url 'ordering' 'freelance' 'ascending' 'date' %}">最新資料</a>
+    <a href="{% url 'ordering' 'freelance' 'ascending' 'average' %}">時薪排行</a>
+
+    <a href="{% url 'latest' 'regular' %}">regular</a>
+    {% endif %}
   </div>
     <img src="{% static 'image/check_banner.jpg'%}">
   </div>
 </div>
 
 
-<div class="container latest-bg-2"><!-- 2st row -->
-  <div class="row">
-
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4 text-center">
-    <form action="{% url 'search' %}" method="get">
-      <input id="user_name" type="text" name="user_name" value="{{keyword}}" placeholder="輸入公司">
-      <input type="submit" value="搜尋">
-    </form>
-    </div>
-    <div class="col-sm-4"></div>
-  </div>
+<div id="latest-bg-2" class="container latest-bg-2"><!-- 2st row -->
 
   <div class="row text-center">
     <h1>最新薪時資訊</h1>
-    <form action="{% url 'order' %}">
+
+    {% if types == 'regular' %}
+
+  <div class="dropdown text-center">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">選擇排序
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-center">
+      <li><a href="{% url 'ordering' 'regular' 'descending' 'working_hour' %}#latest-bg-2"> 一週平均總工時(高到低) </a></li>
+      <li><a href="{% url 'ordering' 'regular' 'ascending' 'working_hour' %}#latest-bg-2"> 一週平均總工時(低到高) </a></li>
+      <li><a href="{% url 'ordering' 'regular' 'descending' 'salary' %}#latest-bg-2"> 人工(高到低)</a></li>
+      <li><a href="{% url 'ordering' 'regular' 'ascending' 'salary' %}#latest-bg-2"> 人工(低到高)  </a></li>
+      <li><a href="{% url 'ordering' 'regular' 'descending' 'date' %}#latest-bg-2"> 資料時間(新到舊) </a></li>
+      <li><a href="{% url 'ordering' 'regular' 'ascending' 'date' %}#latest-bg-2"> 資料時間(舊到新) </a></li>
+    </ul>
+  </div>
+
+    {% endif %}
+
+    {% if types == 'freelance' %}
+    <div class="dropdown text-center">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">選擇排序
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'ordering' 'freelance' 'descending' 'average' %}#latest-bg-2"> 人工(高到低)</a></li>
+        <li><a href="{% url 'ordering' 'freelance' 'ascending' 'average' %}#latest-bg-2"> 人工(低到高)  </a></li>
+        <li><a href="{% url 'ordering' 'freelance' 'descending' 'date' %}#latest-bg-2"> 資料時間(新到舊) </a></li>
+        <li><a href="{% url 'ordering' 'freelance' 'ascending' 'date' %}#latest-bg-2"> 資料時間(舊到新) </a></li>
+
+      </ul>
+    </div>
+    {% endif %}
+    <!-- <form action="">
       <select name="orders">
         <option value="working_hr_descending">一週平均總工時(高到低)</option>
         <option value="working_hr_ascending">一週平均總工時(低到高)</option>
@@ -41,10 +73,11 @@
       </select>
       <br><br>
       <input type="submit">
-</form>
+</form> -->
 
 
     <table class="table table-inverse">
+      {% if types == 'regular' %}
       <tr>
         <th>公司名稱</th>
         <th>職稱</th>
@@ -77,6 +110,39 @@
       </tr>
 
       {% endfor %}
+    {% endif %}
+
+    {% if types == 'freelance'%}
+      <tr>
+        <th>工作名稱</th>
+        <th>工作地點</th>
+        <th>平均薪金</th>
+        <th>最高薪金</th>
+        <th>最低薪金</th>
+        <th>參考時間</th>
+
+      </tr>
+      {% for object in list %}
+
+
+      <tr>
+
+        <td><span class="rwd-td">工作名稱</span><a href="#">{{ object.job_name }}</a></td>
+
+        <td><span class="rwd-td">工作地點</span><a href="#">{{ object.job_location }}</a></td>
+
+        <td><span class="rwd-td">平均收入</span><a href="#">{{ object.average }}</a></td>
+
+        <td><span class="rwd-td">最高收入</span><a href="#">{{ object.max_salary }}</a></td>
+
+        <td><span class="rwd-td">最低收入</span><a href="#">{{ object.min_salary }}</a></td>
+
+        <td><span class="rwd-td">參考時間</span><a href="#">{{ object.date }}</a></td>
+
+      </tr>
+
+      {% endfor %}
+    {% endif %}
     </table>
   </div>
 </div>

@@ -1,6 +1,33 @@
-<form class="bg-3-freelance-form" action="{% url 'freelance_added' %}" method="POST">
+<form id="bg-3-freelance-form" class="bg-3-freelance-form" action="{% url 'test_form' %}" method="POST">
 
-  {{ form.as_p }}
-  {% csrf_token %}
-<input type="submit" />
+
+
+<div class="repeat">
+工作名稱:<br>
+<input type="text" name="job_name1"><br>
+工作地點:<br>
+<input type="text" name="job_location1"><br>
+
+平均收入:<br>
+<input type="text" name="average1"><br>
+
+最高收入:<br>
+<input type="text" name="max_salary1"><br>
+
+最低收入:<br>
+<input type="text" name="min_salary1"><br>
+
+</div><!-- end of repeat -->
+
+<input class="freelance_form_number" type="hidden" name="number_of_form" value=1>
+
+<input class="date" type="hidden" name="date" value= {{ date }}>
+
+{% csrf_token %}
+
+<button type='button' class="increase">增加欄位 </button>
+
+<input type="submit" value="提交表格" /><br>
+
+
 </form>

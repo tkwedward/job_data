@@ -1,5 +1,5 @@
 
-<form class="bg-3-form" action="/job/added" method="POST">
+<form id="bg-3-form" class="bg-3-form" action="{% url 'added' %}" method="POST">
 
 {{ form.as_p }}
 {% csrf_token %}

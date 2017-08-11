@@ -1,44 +1,64 @@
 #coding:utf-8#-*-
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib import messages
-from .forms import ContactForm, FreelanceForm
-from .models import Job_detail, Test, User_data_form
+from django.utils import timezone
+from .forms import ContactForm, Testform
+from .models import Job_detail, Test, User_data_form, Test2, Freelance
 from django.contrib.auth.models import User
 # 製造頁面
 
     # 第一頁
 def get_name(request):
     form = ContactForm()
+    form2 = Testform()
     user = request.user
-    return render(request, 'name.html', {'form': form, 'type':'normal', 'user':user})
+    return render(request, 'name.html', {'form': form, 'form2':form2, 'type':'normal', 'user':user})
 
-# def get_name_2(request):
-#     form = FreelanceForm()
-#     return render(request, 'name.html', {'form': form, 'type2':'freelance'})
 
     #第二頁
-def job_list(request):#2.1
-    model = Job_detail.objects.order_by('-id')
-    return render(request, 'list_view.html', {'list':model})
+def job_list(request, types='regular'):#2.1
+    # model=None
+    if types == 'regular':
+        model = Job_detail.objects.order_by('-id')
+    elif types == 'freelance':
+        model = Freelance.objects.order_by('-id')
 
-def job_list_work_time(request):#2.2
-    model = Job_detail.objects.order_by('working_hour')
-    return render(request, 'list_view.html', {'list':model})
+    return render(request, 'list_view.html', {'list':model, 'types':types}, )
 
-def job_list_salary(request):#2.3
-    return render(request, 'name.html', {'form': form})
+def job_list_ordering(request, types='regular', order='ascending', by='id'):#2.2
+    # try:
+    if order == 'ascending':
+        order = ''
+    elif order == 'descending':
+        order = '-'
 
-# def Freelance_add(request):
-#     if request.method == "POST":
-#         form = FreelanceForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('success')
-#     else:
-#         form = FreelanceForm()
-#     return render(request, 'freelance_form.html', {'form': form})
+    rule = order+by
+
+    if types == 'regular':
+
+        model = Job_detail.objects.order_by(rule)
+
+    elif types == 'freelance':
+        model = Freelance.objects.order_by(rule)
+
+    return render(request, 'list_view.html', {'list':model, 'types':types})
+
+    # except:
+    #     raise Http404('<h1>Page not found</h1>')
+
+
+
+def Test_add(request):
+    if request.method == "POST":
+        form2 = Testform(request.POST)
+        if form2.is_valid():
+            form2.save()
+            return redirect('success')
+    else:
+        form2 = Testform()
+    return render(request, 'name.html', {'form2': form2})
 
 #功能
 
@@ -56,7 +76,8 @@ def added(request):
                     return redirect('success')
                 else:
                     messages.error(request, 'You have post more than 5 times.')
-                    redirect('form')
+                    form = ContactForm()
+                    return redirect('form')
 
         else:
             return redirect('social:begin', 'facebook')
@@ -67,31 +88,29 @@ def added(request):
         form = ContactForm()
     return render(request, 'name.html', {'form': form})
 
+def test_form(request):
+    if request.method == "POST":
+        number_of_form = int(request.POST.get('number_of_form'))
+        date =timezone.now
+
+        for x in range(1, number_of_form+1):
+            job_name = request.POST.get('job_name'+str(x))
+            job_location = request.POST.get('job_location'+str(x))
+            average = request.POST.get('average'+str(x))
+            max_salary = request.POST.get('max_salary'+str(x))
+            min_salary = request.POST.get('min_salary'+str(x))
+            date = timezone.now
+            freelance_user_id = request.user
+
+            Freelance.objects.create(job_name=job_name, job_location=job_location, average =average, max_salary= max_salary, min_salary= min_salary, date = '2017-7-3', freelance_user_id=request.user.id)
+
+    return HttpResponse('average= {}, max_salary={}, min_salary={}, request.user= {}'.format(average ,max_salary, min_salary, request.user))
+
 
 def search(request):
     keyword = request.GET['user_name']
     result = Job_detail.objects.all().filter(company__icontains=keyword)
     return render(request, 'job_search.html', locals())
-    # return HttpResponse(keyword)
-
-def customer_order(request):
-    keyword = request.GET['orders']
-    if keyword == "working_hr_descending":
-        result = Job_detail.objects.all().order_by('-working_hour')
-    elif keyword == "working_hr_ascending":
-        result = Job_detail.objects.all().order_by("working_hour")
-    elif keyword == "salary_descending":
-        result = Job_detail.objects.all().order_by("-salary")
-    elif keyword == "salary_ascending":
-        result = Job_detail.objects.all().order_by("salary")
-
-    elif keyword == "time_descending":
-        result = Job_detail.objects.all().order_by("id")
-
-    elif keyword == "time_ascending":
-        result = Job_detail.objects.all().order_by("-id")
-
-    return render(request, 'list_view.html', {'list':result})
     # return HttpResponse(keyword)
 
 

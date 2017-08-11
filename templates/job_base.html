@@ -26,14 +26,14 @@
 
       </button>
 
-      <a class="navbar-brand" href="#">屌老闆</a>
+      <a class="navbar-brand" href="{% url 'form' %}">屌老闆</a>
     </div>
 
     <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{% url 'form' %}">開始參與</a></li>
-      <li><a href="{% url 'latest' %}">查看時薪</a></li>
-      <li><a href="#">常見問題</a></li>
+      <li class="active"><a href="{% url 'form' %}#bg-3">開始參與</a></li>
+      <li><a href="{% url 'latest' 'regular' %}">查看時薪</a></li>
+      <li><a href="{% url 'form' %}#bg-5">常見問題</a></li>
       <li><a href="#">關於我們</a></li>
       <li><a href="#">{{ sam }}</a></li>
     </ul>

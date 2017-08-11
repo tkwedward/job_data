@@ -114,6 +114,17 @@ th, td {
   width: 120px;
   background: white; }
 
+.dropdown {
+  text-align: center; }
+
+.button, .dropdown-menu {
+  margin: 1px auto; }
+
+.dropdown-menu {
+  width: 200px;
+  left: 50%;
+  margin-left: -100px; }
+
 @media screen and (max-width: 851px) {
   table, tbody, tr, td, div {
     display: block; }

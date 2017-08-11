@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from django.utils.timezone import datetime
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -29,14 +29,15 @@ CHOICES = (('1', 'First',), ('2', 'Second',))
 class Freelance(models.Model):
     job_name = models.CharField( max_length=100)
     job_location = models.CharField( max_length=100)
-    average = models.IntegerField(default=None)
-    max_salary = models.IntegerField(default=None)
-    min_salary = models.IntegerField(default=None)
-    date = models.DateField(default=datetime.today())
+    average = models.IntegerField()
+    max_salary = models.IntegerField()
+    min_salary = models.IntegerField()
+    date = models.DateField(default=timezone.now)
     freelance_user = models.ForeignKey(User, related_name='freelance_user')
 
     def __unicode__(self):
         return self.job_name
+
 
 
 class Job_detail(models.Model):
@@ -67,7 +68,7 @@ class Job_detail(models.Model):
 
     email = models.EmailField(blank=True)
 
-    date = models.DateField(blank=True, default=datetime.today())
+    date = models.DateField(blank=True, default=timezone.now)
 
     def __unicode__(self):
         return self.company
@@ -81,6 +82,13 @@ class User_data_form(models.Model):
 
 class Test(models.Model):
     title = models.CharField(max_length=10)
+    title2 = models.CharField(max_length=10, null= True)
     user = models.ForeignKey(User, related_name="user_test", blank=True, null=True)
     def __str__(self):
         return self.title
+
+class Test2(models.Model):
+    firstname = models.CharField(max_length=10)
+    lastname = models.CharField(max_length=10)
+    def __str__(self):
+        return self.firstname

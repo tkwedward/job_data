@@ -17,6 +17,24 @@
       </div>
       <img src="{% static 'job/image/logo.gif' %}">
     </div>
+
+
+    <form id="bg-x-form" class="bg-x-form" action="{% url 'freelance_form' %}" method="POST">
+
+      {% for field in form2 %}
+      <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+          {% if field.help_text %}
+          <p class="help">{{ field.help_text|safe }}</p>
+          {% endif %}
+      </div>
+  {% endfor %}
+    {% csrf_token %}
+    <input type="submit" value="提交表格" />
+    </form>
+
+
 </div>
 
 <div class="container-fluid bg-2">
@@ -39,13 +57,17 @@
 
 </div>
 
-<div class="container bg-3">
+<div id="bg-3" class="container bg-3">
   <h1>匿名參與工時薪資透明化運動</h1>
 
 
-
-    <a href="#">我是自由業者</a>
+{% if type %}
+    <a href="{% url 'freelance_form' %}#bg-3">我是自由業者</a>
     {% include "form_2.html" %}
+{% else %}
+    <a href="{% url 'form' %}#bg-3">我有固定職業</a>
+    {% include "freelance_form.html" %}
+{% endif %}
 
 </div> <!-- .container -->
 
@@ -66,7 +88,7 @@
   </div>
 </div>
 
-<div class="container-fluid bg-5">
+<div id="bg-5" class="container-fluid bg-5">
 <div class="row">
 
   <div class="col-sm-2"></div>

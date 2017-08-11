@@ -3,12 +3,7 @@ $(document).ready(function(){
   $(".table_selected").show()
   $(".table_not_selected").hide()
 
-
-  // $("#id_OT lable").append("<img class='icon img-circle' src='{% static 'image/icon-1.jpeg' %}'>")
   $("#id_OT lable").html("jazz")
-
-  console.log('hi')
-
 
   $("#id_OT input").change(function() {
       $("#id_OT label").removeClass("case");
@@ -21,19 +16,22 @@ $(document).ready(function(){
 
       $(this).parent().addClass("case")
   });
-  //
-  // $(".OT input ").change(function() {
-  //     $(".OT label").removeClass("case");
-  //
-  //     $(this).parent().addClass("case")
-  // });
-  //
-  // $(".Overtime_pay input ").change(function() {
-  //     $(".Overtime_pay label").removeClass("case");
-  //
-  //     $(this).parent().addClass("case")
-  // });
 
+  i = 1
 
-// .Overtime_pay input
+  $('.increase').click(function(){
+    i = i+1
+    $('.repeat').append(
+    "<hr>工作名稱:<br>\
+    <input type='text' name='job_name"+i +"'><br>\
+    平均收入:<br>\
+    <input type='text' name='average"+i +"'><br>\
+    最高收入:<br>\
+    <input type='text' name='max_salary"+i +"'><br>\
+    最低收入:<br>\
+    <input type='text' name='min_salary"+i +"'>"
+    )
+    $('.freelance_form_number').val(i)
+  })
+
   });
